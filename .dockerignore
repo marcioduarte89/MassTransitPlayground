@@ -1,0 +1,46 @@
+# ------------------------------------------------------------------
+# .dockerignore — Excludes files from the Docker build context
+# ------------------------------------------------------------------
+# Docker sends the entire build context (everything in the directory
+# where you run `docker build`) to the Docker daemon before building.
+# Excluding unnecessary files speeds up the build and reduces image size.
+#
+# The build context here is the solution root, so we exclude:
+#   - Build outputs (bin/, obj/) — not needed; we build inside Docker
+#   - IDE files (.vs/, .idea/) — not needed in the image
+#   - Git history (.git/) — not needed and can be large
+#   - Docker files themselves (no need to embed them in the image)
+# ------------------------------------------------------------------
+
+# Build outputs — will be rebuilt inside the Docker build stage
+**/bin/
+**/obj/
+
+# IDE and tool directories
+.vs/
+.idea/
+.vscode/
+
+# Git
+.git/
+.gitignore
+
+# Docker files (not needed inside the image)
+**/Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Rider / Resharper
+*.DotSettings
+*.DotSettings.user
+
+# User-specific files
+*.user
+*.suo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

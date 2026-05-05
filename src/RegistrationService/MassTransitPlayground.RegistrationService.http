@@ -1,0 +1,6 @@
+@MassTransitPlayground.RegistrationService_HostAddress = http://localhost:5143
+
+GET {{MassTransitPlayground.RegistrationService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

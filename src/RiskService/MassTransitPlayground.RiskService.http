@@ -1,0 +1,6 @@
+@MassTransitPlayground.RiskService_HostAddress = http://localhost:5018
+
+GET {{MassTransitPlayground.RiskService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
