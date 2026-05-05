@@ -1,6 +1,6 @@
 # MassTransit Playground
 
-A hands-on learning project for exploring **MassTransit** with the **SQL Server transport**, written by someone with an NServiceBus (NSB) background who wanted to understand how MassTransit works at a deep level — including its transport topology, outbox mechanics, and pub/sub routing.
+A hands-on learning project for exploring **MassTransit** with the **SQL Server transport**. I've quite a lot of experience with an NServiceBus (NSB) but wanted to understand how MassTransit worked at a deep level — including its transport topology, outbox mechanics, and pub/sub routing. I've worked with NSB mainly using SQL Transport and persistence, so I wanted to understand the equivalent for MassTransit.
 
 The project intentionally mirrors patterns from NServiceBus so that the two frameworks can be compared side by side. Every significant design decision includes an NSB comparison in the source code comments.
 
@@ -68,16 +68,16 @@ The transport database is the message broker. In this project it replaces Rabbit
                │                                             │
                └──────────────────┬──────────────────────────┘
                                   │
-                    ┌─────────────▼─────────────┐
-                    │       TransportDb          │
-                    │                           │
-                    │  transport.Queue          │
-                    │  transport.Topic          │
-                    │  transport.Message        │
-                    │  transport.MessageDelivery│
-                    │  transport.QueueSubscription
-                    │  transport.TopicSubscription
-                    └───────────────────────────┘
+                    ┌─────────────▼───────────────┐
+                    │       TransportDb           │
+                    │                             │
+                    │  transport.Queue            │
+                    │  transport.Topic            │
+                    │  transport.Message          │
+                    │  transport.MessageDelivery  │
+                    │  transport.QueueSubscription|
+                    │  transport.TopicSubscription|
+                    └─────────────────────────────┘
 ```
 
 ### Service Identities on the Bus
@@ -383,7 +383,7 @@ This manifests as:
 - Consumer never triggered
 - No exceptions anywhere
 
-### How we diagnosed it
+### How I diagnosed it
 
 Running the risk service with `MassTransit: Debug` logging revealed:
 
@@ -393,7 +393,7 @@ Create topic: MassTransitPlayground.Contracts.Commands:IPerformKyc
 Create queue subscription: source: ...IPerformKyc, destination: PerformKyc
 ```
 
-The consumer was polling `PerformKyc`. RegistrationService was sending to `perform-kyc`. No match.
+The consumer was polling `PerformKyc`. RegistrationService was sending to `perform-kyc`. Was never going to match.
 
 ### The fix
 
